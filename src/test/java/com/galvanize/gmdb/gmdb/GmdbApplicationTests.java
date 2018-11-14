@@ -1,14 +1,70 @@
 package com.galvanize.gmdb.gmdb;
 
+
+import com.galvanize.gmdb.gmdb.controller.MovieController;
+import com.galvanize.gmdb.gmdb.entity.Movie;
+import com.galvanize.gmdb.gmdb.repository.MovieRepository;
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import java.text.ParseException;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
 
+
+@AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GmdbApplicationTests {
 
+
+	@Autowired
+	private MockMvc mockMvc;
+
+	@Mock
+	MovieRepository repo;
+
+	@Rule
+	public WireMockRule wireMockRule = new WireMockRule(4000);
+
+	@Test
+	public void testGetMethod() throws ParseException {
+		MovieController controller = new MovieController(repo);
+		Movie movie = new Movie();
+		controller.create(movie);
+		then(repo).should(times(1)).save(movie);
+	}
+
+
+	@Test
+	public void testCreate() throws ParseException {
+		MovieController controller = new MovieController(repo);
+		Movie movie = new Movie();
+		controller.create(movie);
+		then(repo).should(times(1)).save(movie);
+	}
+
+	@Test
+	public void testUpdateData() {
+		MovieController controller = new MovieController(repo);
+		Movie movie = new Movie();
+		controller.update(movie);
+		then(repo).should(times(1)).save(movie);
+	}
+
+	@Test
+	public void testDelete(){
+		MovieController controller = new MovieController(repo);
+		controller.delete(1L);
+		then(repo).should(times(1)).deleteById(1L);
+	}
 	// Stories for this project are shown below in order of value, with the highest value listed first.
     // This microservice will contain the CRUD operations required to interact with the GMDB movie database.
     // Other functionality (e.g. user authentication) is hosted in other microservices.
@@ -60,4 +116,9 @@ public class GmdbApplicationTests {
 	public void contextLoads() {
 	}
 
+
+
+
+
 }
+
