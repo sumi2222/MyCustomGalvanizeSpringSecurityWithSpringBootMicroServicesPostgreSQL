@@ -25,6 +25,7 @@ public class Review {
     @Column(name="REVIEW_TEXT")
     private String reviewText;
 
+
     @Column(columnDefinition = "date", name="LAST_UPDATED")
     private Date lastUpdate;
 
