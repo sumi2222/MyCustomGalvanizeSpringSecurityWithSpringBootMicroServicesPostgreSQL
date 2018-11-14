@@ -1,5 +1,7 @@
 package com.galvanize.gmdb.gmdb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -13,9 +15,11 @@ public class Review {
     private long reviewId;
 
     @Column(name="MOVIE_ID", insertable = false, updatable = false, nullable = false)
+//    @Transient
     private long movieId;
 
     @Column(name="REVIEWER_ID", insertable = false, updatable = false, nullable = false)
+//    @Transient
     private long reviewerId;
 
     @Column(name="REVIEW_TEXT")
@@ -25,10 +29,12 @@ public class Review {
     private Date lastUpdate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
     private Movie movie;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="REVIEWER_ID", referencedColumnName = "REVIEWER_ID")
     private Reviewer reviewer;
 
@@ -88,5 +94,18 @@ public class Review {
 
     public void setMovieId(long movieId) {
         this.movieId = movieId;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", movieId=" + movieId +
+                ", reviewerId=" + reviewerId +
+                ", reviewText='" + reviewText + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                ", movie=" + movie +
+                ", reviewer=" + reviewer +
+                '}';
     }
 }
