@@ -15,11 +15,9 @@ public class Review {
     private long reviewId;
 
     @Column(name="MOVIE_ID", insertable = false, updatable = false, nullable = false)
-//    @Transient
     private long movieId;
 
     @Column(name="REVIEWER_ID", insertable = false, updatable = false, nullable = false)
-//    @Transient
     private long reviewerId;
 
     @Column(name="REVIEW_TEXT")

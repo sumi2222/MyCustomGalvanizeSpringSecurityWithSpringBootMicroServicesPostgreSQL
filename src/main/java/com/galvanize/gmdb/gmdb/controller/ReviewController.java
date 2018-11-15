@@ -3,7 +3,6 @@ package com.galvanize.gmdb.gmdb.controller;
 import com.galvanize.gmdb.gmdb.entity.Review;
 import com.galvanize.gmdb.gmdb.repository.MovieRepository;
 import com.galvanize.gmdb.gmdb.repository.ReviewRepository;
-//import org.slf4j.LoggerFactory;
 import com.galvanize.gmdb.gmdb.repository.ReviewerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +43,6 @@ public class ReviewController {
         review.setReviewer(reviewerRepository.findById(review.getReviewerId()).get());
         return this.reviewRepository.save(review);
     }
-
 
     @PutMapping("/updateReview")
     public Review updateReviews(@RequestBody Review review) {
